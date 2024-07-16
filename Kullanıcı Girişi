@@ -1,0 +1,44 @@
+print("""*************************
+    Kullanıcı Girişi Programı
+    
+    3 Giriş hakkınız var...
+*************************
+
+""")
+
+sys_kullanıcı = "Fatih Portakal"
+
+sys_parola = "Fatih20091453"
+
+kalan_hak = 3
+
+
+while True:
+    kullanıcı = input("kullanıcı isminiz:")
+
+    parola = input("Parolanız:")
+
+    if (kullanıcı != sys_kullanıcı and parola == sys_parola):
+
+        print("kullanıcı ismi hatalı....")
+
+        kalan_hak -=1
+
+    elif (kullanıcı == sys_kullanıcı and parola != sys_parola):
+
+        print("porolanız hatalı...")
+
+        kalan_hak -=1
+    elif (kullanıcı != sys_kullanıcı and parola != sys_parola):
+
+        print("Her ikiside hatalı.")
+
+        kalan_hak -=1
+    else:
+        print("sisteme girebilirsiniz.")
+
+        break
+    if (kalan_hak == 0):
+        print("hakkınız bitti.")
+
+        break
