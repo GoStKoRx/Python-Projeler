@@ -1,0 +1,45 @@
+print("""***********************************
+
+ Hesap Makinesi Programı =)
+
+işlemler;
+
+1.İşlem: Toplama
+
+2.İşlem: Çıkarma
+
+3.işlem: Çarpma
+
+4.işlem: Bölme
+
+****************************************
+""")
+
+a = int(input("Bir sayı giriniz:"))
+
+
+b = int(input("Bir sayı giriniz:"))
+
+işlem = input("bir işlem giriniz:")
+
+
+if işlem == "1":
+    print(" {} ile {}' ın toplamı {} dır".format(a,b,a+b))
+
+
+
+if işlem == "2":
+    print(" {} ile {}' ın çıkarımı {} dır".format(a,b,a+b))
+
+
+
+if işlem == "3":
+    print(" {} ile {}' ın çarpımı {} dır".format(a,b,a+b))
+
+
+
+if işlem == "4":
+    print(" {} ile {}' ın bölümü {} dır".format(a,b,a+b))
+
+else:
+    print("geçersiz işlem")
