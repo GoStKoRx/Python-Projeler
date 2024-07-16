@@ -1,0 +1,32 @@
+print("""***********************
+
+ATM_Makinesine Hoşgeldiniz.
+
+Lütfen işlem seçin:
+
+1 . Bakiye sorgulama
+2 . Para Yatırma
+3 . Para çekme
+
+***************************
+""")
+bakiye = 500
+while True:
+    işlem = input("Lütfen işlem seçiniz:")
+    if (işlem == "q"):
+        print("Yine bekleriz.")
+        break
+    elif (işlem == "1"):
+        print("bakiyeniz {} Tl' dir".format(bakiye))
+    elif (işlem == "2"):
+        Miktar = int(input("Lütfen miktar giriniz."))
+        bakiye += Miktar
+    elif (işlem == "3"):
+        Miktar = int(input("Lütfen miktar giriniz."))
+
+        if ( bakiye - Miktar < 0):
+            print("Yetersiz Bakiye.")
+            continue
+        bakiye -= Miktar
+    else:
+        print("Geçersiz işlem")
