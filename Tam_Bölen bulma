@@ -1,0 +1,24 @@
+print("""***********************
+Tam bölen bulma Programı
+*Programdan çıkmak için 'q' ya basın.
+*************************
+""")
+
+def tambölen(sayı):
+    tambölen = []
+
+    for i in range(2,sayı):
+        if (sayı % i == 0):
+            tambölen.append(i)
+    return tambölen
+
+while True:
+
+    sayı = input("sayı:")
+    if (sayı == "q"):
+        print("programdan çıkılıyor...")
+        break
+    else:
+        sayı = int(sayı)
+
+        print("tam bölenleri:",tambölen(sayı))
