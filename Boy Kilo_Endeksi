@@ -1,0 +1,16 @@
+boy = float(input("Lütfen boyunuzu girin:"))
+kilo = int(input("lütfen kilonuzu girin:"))
+
+bki = kilo / (boy**2)
+
+print(bki)
+if bki < 18.5:
+    print("zayıf")
+    
+elif bki >= 18.5 and bki <25:
+    print("Normal")
+
+elif bki >= 25 and bki <30:
+    print("Fazla kilolu")
+elif bki >30:
+    print("Obez")
