@@ -1,0 +1,24 @@
+vize1 = int(input("Vize1"))
+vize2 = int(input("Vize2"))
+Final = int(input("Final"))
+
+genel_Not = vize1 * 3/10 + vize2 * 3/10 + Final * 4/10
+
+if (genel_Not >= 90):
+    Print("AA")
+elif (genel_Not >= 85):
+    print("BA")
+elif (genel_Not >= 80):
+    print("BB")
+elif (genel_Not >=755):
+    print("CB")
+elif (genel_Not >= 70):
+    print("CC")
+elif (genel_Not >= 65):
+    print("DC")
+elif (genel_Not >= 60):
+    print("DD")
+elif (genel_Not >= 55):
+    print("FD")
+elif (genel_Not < 55):
+    print("FF")
