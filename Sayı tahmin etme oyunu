@@ -1,0 +1,47 @@
+import random
+import time
+
+print("""*********************
+  sayı tahmin oyunu
+  
+  7 hakkınız var
+
+  1 ile 40 arasında sayıyı tahmin edin
+*******************""")
+
+rasgele_sayı = random.randint(1,40)
+tahmin_hakkı = 7
+
+while True:
+
+
+    tahmin = int(input("tahmininiz:"))
+
+    if( tahmin < rasgele_sayı)
+        print("Bilgiler sorgulanıyor...")
+        time.sleep(1)
+
+        print("Daha yüksek sayı girin.")
+        tahmin_hakkı -= 1
+
+
+    elif ( tahmin > rasgele_sayı):
+
+        print("Bilgiler sorgulanıyor...")
+        time.sleep(1)
+
+        print("Daha düşük sayı girin.")
+        tahmin_hakkı -= 1
+    else:
+
+        print("Bilgiler sorgulanıyor...")
+        time.sleep(1)
+
+
+        if (tahmin == rasgele_sayı):
+            print("sayı tahmini doğru")
+            break
+
+    if(tahmin_hakkı < 0):
+        print("tahmin hakkınız bitti")
+        break
