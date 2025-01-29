@@ -1,0 +1,96 @@
+import wikipediaapi
+import datetime
+import requests
+import re
+import nltk
+from nltk.chat.util import Chat, reflections
+
+
+def turkce_gun_isimlerini_cek():
+    gunler = {
+        "Monday": "Pazartesi",
+        "Tuesday": "Salı",
+        "Wednesday": "Çarşamba",
+        "Thursday": "Perşembe",
+        "Friday": "Cuma",
+        "Saturday": "Cumartesi",
+        "Sunday": "Pazar"
+    }
+    return gunler
+
+pairs = [
+    ["merhaba", ["Merhaba! Sana nasıl yardımcı olabilirim?"]],
+    ["nasılsın", ["İyiyim, teşekkür ederim! Sen nasılsın?"]],
+    ["(.*) adın ne", ["Ben akıllı bir chatboot'um. Senin adın ne?"]],
+    ["adın ne", ["Ben akıllı bir chatboot'um. Senin adın ne?"]],
+    ["ismin ne", ["Ben akıllı bir chatboot'um. Senin adın ne?"]],
+    ["(.*) ismin ne", ["Ben akıllı bir chatboot'um. Senin adın ne?"]],
+    ["(.*) iyiyim (.*)", ["İyi olduğunuza sevindim. Yardım edebilceğim bir konu varmı? "]],
+    ["iyiyim", ["İyi olduğunuza sevindim. Yardım edebilceğim bir konu varmı? "]],
+    ["iyiyim (.*)", ["İyi olduğunuza sevindim. Yardım edebilceğim bir konu varmı? "]],
+    ["(.*) iyiyim", ["İyi olduğunuza sevindim. Yardım edebilceğim bir konu varmı? "]],
+    ["(.*) kötüyüm (.*)", ["Kendini kötü hissetmene üzüldüm,Her zaman sana destekçi olcağımı unutma. Yardım edebilceğim bir konu varmı? "]],
+    ["kötüyüm (.*)", ["Kendini kötü hissetmene üzüldüm,Her zaman sana destekçi olcağımı unutma. Yardım edebilceğim bir konu varmı? "]],
+    ["(.*) kötüyüm", ["Kendini kötü hissetmene üzüldüm,Her zaman sana destekçi olcağımı unutma. Yardım edebilceğim bir konu varmı? "]],
+    ["kötüyüm", ["Kendini kötü hissetmene üzüldüm,Her zaman sana destekçi olcağımı unutma. Yardım edebilceğim bir konu varmı? "]],
+    ["teşekkürler", ["Rica ederim, Yardım edebildiğime sevindim. Başka sorunuz varmı?"]],
+    ["benim adım (.*)", ["Merhaba, %1! Tanıştığımıza memnun oldum."]],
+    ["(.*) hava (.*)", ["Hava durumu bilgisi için şehir adı söylemelisin."]],
+    ["(.*) saat kaç", ["Şu an saat " + datetime.datetime.now().strftime("%H:%M")]],
+    ["(.*) günlerden ne", ["Bugün " + turkce_gun_isimlerini_cek().get(datetime.datetime.now().strftime("%A"), "Bilinmeyen gün")]],
+    ["bana bir şaka yap", [
+        "Neden matematik kitabı üzgündü? Çünkü çok fazla problemi vardı! 😂",
+        "İki balık karşılaşmış, biri diğerine ‘Nasılsın?’ demiş, diğeri ‘Su gibiyim!’ 😆",
+        "Telefonun şarjı neden bitti? Çünkü ‘konuşarak’ anlaşmaya çalışıyordu! 😄"
+    ]],
+    ["(.*) hakkında bilgi ver", ["Wikipedia'dan bilgi arıyorum..."]],
+    ["(.*) hesapla (.*)", ["Matematik işlemi yapıyorum..."]],
+    ["(.*)", ["Üzgünüm, bunu anlayamadım. Daha farklı bir şekilde sorabilir misin?"]]
+]
+
+chatbot = Chat(pairs, reflections)
+
+
+def chatbot_cevapla():
+    while True:
+        user_input = input("Sen: ").lower()
+
+        if "hakkında bilgi ver" in user_input:
+            try:
+                topic = user_input.replace("hakkında bilgi ver", "").strip()
+                wiki_wiki = wikipediaapi.Wikipedia('tr')
+                page = wiki_wiki.page(topic)
+                if page.exists():
+                    response = page.summary[:300] + "..."
+                else:
+                    response = "Üzgünüm, bu konuda bilgi bulamadım."
+            except Exception as e:
+                response = "Bir hata oluştu: " + str(e)
+
+        elif "hava nasıl" in user_input:
+            city = "İstanbul"
+            api_key = "SENİN_HAVA_DURUMU_API_KEYİN"
+            url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&lang=tr"
+            response = requests.get(url).json()
+            if "current" in response:
+                temp = response["current"]["temp_c"]
+                condition = response["current"]["condition"]["text"]
+                response = f"{city} için hava durumu: {condition}, sıcaklık: {temp}°C"
+            else:
+                response = "Hava durumu bilgisi alınamadı."
+
+        elif "hesapla" in user_input:
+            try:
+                expression = re.search(r"hesapla (.*)", user_input).group(1)
+                result = eval(expression)
+                response = f"Sonuç: {result}"
+            except:
+                response = "Geçerli bir işlem gir."
+
+        else:
+            response = chatbot.respond(user_input)
+
+        print(f"Chatbot: {response}")
+
+if __name__ == "__main__":
+    chatbot_cevapla()
