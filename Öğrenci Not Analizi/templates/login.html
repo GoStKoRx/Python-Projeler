@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Girişi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Öğrenci Girişi</h1>
+    <form method="POST">
+        <label for="student_num">Öğrenci No:</label>
+        <input type="text" id="student_num" name="student_num" required><br><br>
+        <label for="student_password">Şifre:</label>
+        <input type="password" id="student_password" name="student_password" required><br><br>
+        <button type="submit">Giriş Yap</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+body {
+  background-color: #f0f8ff;
+}
+
+h1 {
+  color: #4CAF50;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+button:hover {
+  background-color: #45a049;
